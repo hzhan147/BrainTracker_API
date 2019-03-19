@@ -170,7 +170,7 @@ public class ActivityInstance {
    * @apiParamExample {JSON} Example of param:
    * {"pin": 4003}
    *
-   * @apiExample Example of body:
+   * @apiExample Example of PATTERNCOMPARISON:
    * {
    *     "activityInstanceID": 625,
    *     "timeStamp": 1552196109000,
@@ -180,6 +180,7 @@ public class ActivityInstance {
    *             "screenWidth": 1920,
    *             "screenHeight": 1080,
    *             "timeTakenToComplete": 11000,
+   *             "score": 10,
    *             "answers": [
    *                 {
    *                     "result": true,
@@ -215,7 +216,33 @@ public class ActivityInstance {
    *         }
    *     ]
    * }
-   *
+   * @apiExample Example of FINGERTAPPING:
+   * {
+   *     "activityInstanceID": 616,
+   *     "timeStamp": 1552973093474,
+   *     "activityResults": [
+   *         {
+   *             "activityBlockId": "FINGERTAPPING",
+   *             "timeToTap": 5,
+   *             "screenWidth": 1920,
+   *             "screenHeight": 1080,
+   *             "timeTakenToComplete": 11000,
+   *             "score": 10,
+   *             "answers": [
+   *                 {
+   *                     "Trial": "t1",
+   *                     "operatingHand": "right",
+   *                     "tapNumber": 11
+   *                 },
+   *                 {
+   *                     "Trial": "t2",
+   *                     "operatingHand": "left",
+   *                     "tapNumber": 3
+   *                 }
+   *             ]
+   *         }
+   *     ]
+   * }
    * @apiSuccess {JSON} message The message of the operation.
    *
    * @apiSuccessExample Example data on Success:

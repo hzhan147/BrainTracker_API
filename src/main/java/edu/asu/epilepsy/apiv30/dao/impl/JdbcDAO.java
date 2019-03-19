@@ -1,5 +1,6 @@
 package edu.asu.epilepsy.apiv30.dao.impl;
 
+import com.google.gson.JsonObject;
 import edu.asu.epilepsy.apiv30.dao.DAO;
 import edu.asu.epilepsy.apiv30.dao.DAOException;
 import edu.asu.epilepsy.apiv30.dao.DAOFactory;
@@ -544,15 +545,16 @@ public abstract class JdbcDAO implements DAO {
                         int timeToComplete = postFingerTapping.getTimeToComplete();
                         float screenWidth = postFingerTapping.getScreenWidth();
                         float screenHeight = postFingerTapping.getScreenHeight();
+                        int score = postFingerTapping.getScore();
                         HashMap<String, Integer> fingertappingResult = postFingerTapping.getResults();
-                        JSONObject handObject = new JSONObject();
+                        JsonObject handObject = new JsonObject();
                         for (Map.Entry<String, Integer> item : fingertappingResult.entrySet()) {
                             String hand = item.getKey();
                             int value = item.getValue();
-                            handObject.put(hand, value);
+                            handObject.addProperty(hand, value);
                         }
-                        String fingerTappingResult = handObject.toJSONString();
-                        System.out.println(TAG + " postActivityInstances() :- " + handObject.toJSONString());
+                        String fingerTappingResult = handObject.toString().replace("\\","");
+                        System.out.println(TAG + " postActivityInstances() :- " + handObject.toString());
 
                         try {
                             ps.setInt(1, patientPin);
@@ -561,8 +563,9 @@ public abstract class JdbcDAO implements DAO {
                             ps.setFloat(4, screenHeight);
                             ps.setFloat(5, screenWidth);
                             ps.setTimestamp(6, userSubmissionTime);
-                            ps.setString(7, fingerTappingResult);
-                            ps.setInt(8, timeToComplete);
+                            ps.setInt(7, score);
+                            ps.setString(8, fingerTappingResult);
+                            ps.setInt(9, timeToComplete);
                             ps.addBatch();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -615,6 +618,7 @@ public abstract class JdbcDAO implements DAO {
                         int timeToComplete = postPatternComparison.getTotalTimeTaken();
                         int screenWidth = (int) postPatternComparison.getScreenWidth();
                         int screenHeight = (int) postPatternComparison.getScreenHeight();
+                        int score = postPatternComparison.getScore();
                         ArrayList<String> results = postPatternComparison.getResults();
                         String resultToSubmit = results.toString();
 
@@ -625,7 +629,8 @@ public abstract class JdbcDAO implements DAO {
                             ps.setFloat(4, screenHeight);
                             ps.setFloat(5, screenWidth);
                             ps.setTimestamp(6, userSubmissionTime);
-                            ps.setString(7, resultToSubmit);
+                            ps.setInt(7, score);
+                            ps.setString(8, resultToSubmit);
                             ps.addBatch();
                         } catch (Exception e) {
                             e.printStackTrace();

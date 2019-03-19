@@ -10,9 +10,11 @@ public class PostPatternComparison extends PostActivity {
   private float screenWidth;
   private float screenHeight;
   private Timestamp _userSubmittedTimeStamp;
+  private int score;
 
-  public PostPatternComparison(String activityId, int activityInstanceId, ArrayList<String> results,
+  public PostPatternComparison(String activityId, int activityInstanceId, ArrayList<String> results, int score,
                                int totalTimeTaken, float screenWidth, float screenHeight, Timestamp userSubmittedTimeStamp, int patintPin) {
+    this.score = score;
     this._activityId = activityId;
     this._activityInstanceId = activityInstanceId;
     this.results = results;
@@ -71,5 +73,11 @@ public class PostPatternComparison extends PostActivity {
     this._userSubmittedTimeStamp = _userSubmittedTimeStamp;
   }
 
+  public int getScore() {
+    return score;
+  }
 
+  public void setScore(int score) {
+    this.score = score;
+  }
 }
